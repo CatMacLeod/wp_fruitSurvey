@@ -1,28 +1,5 @@
 <?php
 
-/** GetPosts() function incorporates the database connection. 
-    It preforms queries, and pushes the returned rows from 
-    the database representing published posts 
-    into the 'posts' array ordered by desc timeline.
-**/
-function getPosts(){
-include 'db_connection.php';
-
-    $sql="SELECT ID, post_title, post_content, post_type
-            FROM wp_posts 
-            WHERE (post_type = 'post' OR post_type = 'page' )
-            AND post_status = 'publish'
-            ORDER BY post_date DESC";
-    $result = mysqli_query($con,$sql);
-    
-    $posts = [];
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        array_push($posts, $row);
-    }
-    return $posts;
-}
-
 function get_fruit_data($prefix) {
     global $wpdb;
     $sql = 'SELECT option_id, option_name, option_value FROM wp_options WHERE option_name LIKE \''.$prefix.'%\' ORDER BY option_name';
